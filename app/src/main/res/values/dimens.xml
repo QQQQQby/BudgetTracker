@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="tool_bar_height">56dp</dimen>
+    <dimen name="return_btn_size">30dp</dimen>
+    <dimen name="category_text_size">30sp</dimen>
+    <dimen name="category_padding">20sp</dimen>
+
+    <dimen name="transaction_text_size_1">15sp</dimen>
+    <dimen name="transaction_text_size_2">36sp</dimen>
+    <dimen name="transaction_padding">20sp</dimen>
+    <dimen name="no_transactions_text_size">30sp</dimen>
+</resources>

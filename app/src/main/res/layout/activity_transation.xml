@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tool_bar_height"
+        android:background="@color/purple_500">
+        <ImageButton
+            android:layout_width="@dimen/return_btn_size"
+            android:layout_height="@dimen/return_btn_size"
+            android:layout_gravity="start"
+            android:gravity="center"
+            android:background="@drawable/return_btn"
+            android:id="@+id/return_btn">
+        </ImageButton>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/transaction_activity_title"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+    </Toolbar>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/transaction_padding"
+        android:text="@string/no_transactions"
+        android:textSize="@dimen/no_transactions_text_size"
+        android:visibility="gone"
+        android:id="@+id/no_transactions_view">
+
+    </TextView>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/transaction_list_view">
+
+    </ListView>
+
+</LinearLayout>
