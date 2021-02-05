@@ -1,14 +1,12 @@
 package com.byqi.budgettracker.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.byqi.budgettracker.R;
 import com.byqi.budgettracker.model.Transaction;
@@ -16,30 +14,47 @@ import com.byqi.budgettracker.model.Transaction;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
-public class TransactionAdapter extends ArrayAdapter<Transaction> {
+public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHolder> {
 
-    private int resourceId;
-    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private List<Transaction> transactionList;
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
-    public TransactionAdapter(Context context, int resourceId, List<Transaction> transactionList) {
-        super(context, resourceId, transactionList);
-        this.resourceId = resourceId;
+    public TransactionAdapter(List<Transaction> transactionList) {
+        this.transactionList = transactionList;
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View view = LayoutInflater.from(getContext()).inflate(resourceId, parent, false);
-        TextView categoryView = (TextView) view.findViewById(R.id.transaction_category_view);
-        TextView nameView = (TextView) view.findViewById(R.id.transaction_name_view);
-        TextView timestampView = (TextView) view.findViewById(R.id.transaction_timestamp_view);
-        TextView costView = (TextView) view.findViewById(R.id.transaction_cost_view);
-        Transaction transaction = getItem(position);
-        categoryView.setText(transaction.getCategoryName());
-        nameView.setText(transaction.getName());
-        timestampView.setText(dateFormat.format(new Date(transaction.getTimestamp())));
-        costView.setText(String.format("$%.2f",transaction.getCost()));
-        return view;
+    public TransactionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.transaction_item_view, parent, false);
+        return new TransactionViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(TransactionViewHolder holder, int position) {
+        Transaction transaction = transactionList.get(position);
+        holder.categoryView.setText(transaction.getCategoryName());
+        holder.nameView.setText(transaction.getName());
+        holder.timestampView.setText(dateFormat.format(new Date(transaction.getTimestamp())));
+        holder.costView.setText(String.format(Locale.getDefault(), "$%.2f", transaction.getCost()));
+    }
+
+    @Override
+    public int getItemCount() {
+        return transactionList.size();
+    }
+}
+
+class TransactionViewHolder extends RecyclerView.ViewHolder {
+    public final TextView categoryView, nameView, timestampView, costView;
+
+    public TransactionViewHolder(View view) {
+        super(view);
+        categoryView = (TextView) view.findViewById(R.id.transaction_category_view);
+        nameView = (TextView) view.findViewById(R.id.transaction_name_view);
+        timestampView = (TextView) view.findViewById(R.id.transaction_timestamp_view);
+        costView = (TextView) view.findViewById(R.id.transaction_cost_view);
     }
 }

@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.OrientationHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.byqi.budgettracker.R;
 import com.byqi.budgettracker.model.Transaction;
@@ -20,7 +23,7 @@ import java.util.List;
 public class TransactionActivity extends Activity {
 
     ImageButton return_btn;
-    ListView transactionListView;
+    RecyclerView transactionRecyclerView;
     List<Transaction> transactionList;
 
     @Override
@@ -33,15 +36,17 @@ public class TransactionActivity extends Activity {
             ((TextView)findViewById(R.id.no_transactions_view)).setVisibility(View.VISIBLE);
 
         return_btn = (ImageButton) findViewById(R.id.return_btn);
-        return_btn.setOnClickListener(view -> {
-            finish();
-        });
+        return_btn.setOnClickListener(view -> finish());
 
-        TransactionAdapter adapter = new TransactionAdapter(TransactionActivity.this,
-                R.layout.transaction_item_view, transactionList);
+        TransactionAdapter adapter = new TransactionAdapter(transactionList);
 
-        transactionListView = (ListView) findViewById(R.id.transaction_list_view);
-        transactionListView.setAdapter(adapter);
+        LinearLayoutManager transactionLayoutManager = new LinearLayoutManager(this);
+        transactionLayoutManager.setOrientation(RecyclerView.VERTICAL);
+
+        transactionRecyclerView = (RecyclerView) findViewById(R.id.transaction_recycler_view);
+        transactionRecyclerView.setLayoutManager(transactionLayoutManager);
+        transactionRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        transactionRecyclerView.setAdapter(adapter);
     }
 
     private void initTransactionList() {

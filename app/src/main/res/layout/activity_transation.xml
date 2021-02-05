@@ -15,7 +15,8 @@
             android:layout_gravity="start"
             android:gravity="center"
             android:background="@drawable/return_btn"
-            android:id="@+id/return_btn">
+            android:id="@+id/return_btn"
+            android:contentDescription="@string/app_name">
         </ImageButton>
         <TextView
             android:layout_width="wrap_content"
@@ -31,17 +32,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="@dimen/transaction_padding"
+        android:paddingEnd="0sp"
         android:text="@string/no_transactions"
         android:textSize="@dimen/no_transactions_text_size"
         android:visibility="gone"
         android:id="@+id/no_transactions_view">
 
     </TextView>
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/transaction_list_view">
+        android:id="@+id/transaction_recycler_view">
 
-    </ListView>
+    </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>
